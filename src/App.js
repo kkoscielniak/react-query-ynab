@@ -1,12 +1,20 @@
-// import "./App.css";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { QueryClient, QueryClientProvider } from "react-query";
 import BudgetListingScreen from "./screens/BudgetSelectionScreen";
 import BudgetDetailsScreen from "./screens/BudgetDetailsScreen";
 
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 1000 * 60 * 60 * 24,
+    },
+  },
+}); // this needs to be outside of the React App!!!
+
 const App = () => {
-  const queryClient = new QueryClient();
   const Stack = createNativeStackNavigator();
 
   return (
@@ -17,6 +25,7 @@ const App = () => {
           <Stack.Screen name="BudgetDetails" component={BudgetDetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
+      <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   );
 };
