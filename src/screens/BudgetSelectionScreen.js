@@ -10,9 +10,7 @@ const BudgetListingScreen = ({ navigation }) => {
     data: responseData,
     isError,
     error,
-  } = useQuery(`budgets`, getBudgets, {
-    // staleTime: 10000,
-  });
+  } = useQuery(`budgets`, getBudgets);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -25,7 +23,7 @@ const BudgetListingScreen = ({ navigation }) => {
   const budgetData = responseData?.data;
 
   return (
-    <View>
+    <>
       {budgetData.budgets.map((budget) => {
         const { id: budgetId, name } = budget;
 
@@ -41,7 +39,7 @@ const BudgetListingScreen = ({ navigation }) => {
           </Link>
         );
       })}
-    </View>
+    </>
   );
 };
 

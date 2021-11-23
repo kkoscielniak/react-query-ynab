@@ -13,7 +13,15 @@ const BudgetDetailsScreen = ({ route, navigation }) => {
     error,
   } = useQuery([`transactions`, budgetId], getTransactions);
 
-  console.log(responseData);
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (isError) {
+    return <Text>Error: {error}</Text>;
+  }
+
+  const { data: transactionsData } = responseData;
 
   const handleBack = () => {
     navigation.goBack();
@@ -23,6 +31,16 @@ const BudgetDetailsScreen = ({ route, navigation }) => {
     <View>
       <Button onPress={handleBack} title="Go back" />
       <Text>Budget id: {budgetId}</Text>
+
+      <View>
+        {transactionsData.transactions.map((transaction) => {
+          const { payee_name: payee, amount } = transaction;
+
+          return (
+            <View>{payee}: {amount*0.001}</View>
+          );
+        })}
+      </View>
     </View>
   );
 };
