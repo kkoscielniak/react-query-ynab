@@ -13,6 +13,10 @@ const BudgetListingScreen = ({ navigation }) => {
     return <Text>Loading...</Text>;
   }
 
+  if (isError) {
+    return <Text>Error: {error}</Text>
+  }
+
   return (
     <View>
       {data?.budgets.map((budget) => {
