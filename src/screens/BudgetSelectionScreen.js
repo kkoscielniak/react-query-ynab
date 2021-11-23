@@ -3,7 +3,7 @@ import { Link } from "@react-navigation/native";
 import { useQuery } from "react-query";
 import { getBudgets } from "../queries/budgets";
 
-const BudgetSelectionScreen = ({ navigation }) => {
+const BudgetListingScreen = ({ navigation }) => {
   const { isLoading, isSuccess, data, isError, error } = useQuery(
     `budgets`,
     getBudgets
@@ -34,4 +34,4 @@ const BudgetSelectionScreen = ({ navigation }) => {
   );
 };
 
-export default BudgetSelectionScreen;
+export default BudgetListingScreen;
