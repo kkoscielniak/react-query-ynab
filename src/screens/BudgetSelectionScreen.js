@@ -4,22 +4,29 @@ import { useQuery } from "react-query";
 import { getBudgets } from "../queries/budgets";
 
 const BudgetListingScreen = ({ navigation }) => {
-  const { isLoading, isSuccess, data, isError, error } = useQuery(
-    `budgets`,
-    getBudgets
-  );
+  const {
+    isLoading,
+    isSuccess,
+    data: responseData,
+    isError,
+    error,
+  } = useQuery(`budgets`, getBudgets, {
+    // staleTime: 10000,
+  });
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
 
   if (isError) {
-    return <Text>Error: {error}</Text>
+    return <Text>Error: {error}</Text>;
   }
+
+  const budgetData = responseData?.data;
 
   return (
     <View>
-      {data?.budgets.map((budget) => {
+      {budgetData.budgets.map((budget) => {
         const { id: budgetId, name } = budget;
 
         return (

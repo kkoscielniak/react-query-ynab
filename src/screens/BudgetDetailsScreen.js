@@ -1,13 +1,16 @@
-import { Text, View } from "react-native-web";
+import { Button, Text, View } from "react-native-web";
 
-const BudgetDetailsScreen = ({ route }) => {
+const BudgetDetailsScreen = ({ route, navigation }) => {
   const { budgetId } = route.params;
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   return (
-    <View className="App">
-      <View className="App-header">
-        <Text>Budget id: { budgetId }</Text>
-      </View>
+    <View>
+      <Button onPress={handleBack} title="Go back" />
+      <Text>Budget id: {budgetId}</Text>
     </View>
   );
 };
