@@ -1,7 +1,6 @@
 import { create as createApiClient } from "apisauce";
 
-const API_KEY =
-  "32fe59082468840596c6e1b28e7e5d2109a9c9abf8f19efe9e9a78ea926d269f";
+const API_KEY = process.env.REACT_APP_YNAB_API_KEY; 
 const baseURL = "https://api.youneedabudget.com/v1";
 
 const client = createApiClient({
