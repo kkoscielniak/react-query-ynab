@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextInput, View, Text, Button, Picker } from "react-native-web";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addTransaction } from "../queries/transactions";
 import { getAccounts } from "../queries/accounts";
 
@@ -8,6 +8,8 @@ const AddTransaction = ({ budgetId }) => {
   const [payeeText, setPayeeText] = useState("");
   const [valueText, setValueText] = useState(0);
   const [selectedAccountId, setSelectedAccountId] = useState(null);
+
+  const queryClient = useQueryClient(); 
 
   const {
     isLoading,
@@ -37,12 +39,13 @@ const AddTransaction = ({ budgetId }) => {
   const { accounts } = responseData.data;
 
   const handleAddButton = () => {
-    console.log(selectedAccountId);
     mutation.mutate({
       budgetId,
       payee: payeeText,
       value: valueText,
       accountId: selectedAccountId,
+    }, {
+      onSuccess: () => { queryClient.invalidateQueries(['transactions', budgetId])}
     });
   };
 
