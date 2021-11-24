@@ -1,5 +1,6 @@
 import { Button, Text, View } from "react-native-web";
 import { useQuery } from "react-query";
+import AddTransaction from "../components/AddTransaction";
 import { getTransactions } from "../queries/transactions";
 
 const BudgetDetailsScreen = ({ route, navigation }) => {
@@ -40,6 +41,9 @@ const BudgetDetailsScreen = ({ route, navigation }) => {
             <View>{payee}: {amount*0.001}</View>
           );
         })}
+      </View>
+      <View>
+        <AddTransaction budgetId={budgetId}/>
       </View>
     </View>
   );
